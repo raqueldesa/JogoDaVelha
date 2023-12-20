@@ -11,7 +11,7 @@ utils = require("utils")
 -- 8. repete tudo ou finaliza
 
 -- futura feature -> criar um arquivo e registrar os jogos e pontuações
-
+-- teste de commit 
 
 jogo = 1
 
