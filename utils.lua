@@ -31,7 +31,7 @@ function printInicio()
     print("Bem vindo ao Jogo da Velha da Raquel :)")
     print("-------------feito em Lua--------------")
     print()
-    print("Reginha:")
+    print("Regrinhas:")
     print("Jogador 1 = X")
     print("Jogador 2 = O")
     
@@ -39,12 +39,15 @@ function printInicio()
     
     print("Para escolher onde quer jogar, digite dois numeros que indicam linha e coluna de uma matriz 3x3")
     print("Exemplo:")
+    print()
     print("Jogo antes:")
     print(cerquilha0)
 
     pausaELimpa()
 
     print("Voce digita: 2 2")
+    print()
+
     print("Resultado:")
     print(cerquilha1)
 
@@ -60,7 +63,22 @@ function printInicio()
     pausaELimpa()
 end
 
+function erroCoordenada()
+    print()
+    print("Coordenadas nao aceitas")
+    print("Jogador perdeu a vez :(")
+    print()
+    print("Coordenadas validas:")
+    print(coordenadas)
+end
+
+function erroJaExiste()
+    print("Posicao ja preenchida")
+    print("Jogador perdeu a vez :(")
+end
+
 function printEstadoAtualJogo(jogo)
+
     for i = 1, #jogo do
         for j = 1, #jogo[i] do
             local jogada = "-"
@@ -76,13 +94,31 @@ function printEstadoAtualJogo(jogo)
 end
 
 function lerCoordenadas(jogador, jogo)
-    io.write("Jogador ", jogador, " digite suas coordenadas: ")
-    linha = io.read("*number")
-    coluna = io.read("*number")
+    io.write("Jogador ", jogador, ", digite suas coordenadas: ")
+
+    local entrada = io.read("*line")
+    local linha, coluna = string.match(entrada, "(%d+)%s+(%d+)")
     
-    jogo[linha][coluna] = jogador
+    linha = tonumber(linha)
+    coluna = tonumber(coluna)
+
+    
+        
+
+    if linha and coluna and linha >= 1 and linha <= 3 and coluna >= 1 and coluna <= 3 then
+        if jogo[linha][coluna] == 0 then
+            jogo[linha][coluna] = jogador
+            jogadas = jogadas + 1
+        else
+            erroJaExiste()
+        end
+    else
+        erroCoordenada()
+
+    end
     return jogo
 end
+
 
 function verificaValoresIguais(lista)
     
@@ -96,13 +132,46 @@ function verificaValoresIguais(lista)
 end
 
 
--- function verificaGanhador(jogo)
---     for i = 1, #jogo do
---         local 
---         for j = 1, #jogo[i] do
+function obterLinhasColunasDiagonais(matriz)
+    local resultado = {}
 
---             if i == j then
+    for i = 1, #matriz do
+        table.insert(resultado, matriz[i])
+    end
+
+    for j = 1, #matriz[1] do
+        local coluna = {}
+        for i = 1, #matriz do
+            table.insert(coluna, matriz[i][j])
+        end
+        table.insert(resultado, coluna)
+    end
+
+    local diagonalPrincipal = {}
+    for i = 1, #matriz do
+        table.insert(diagonalPrincipal, matriz[i][i])
+    end
+    table.insert(resultado, diagonalPrincipal)
+
+    local diagonalSecundaria = {}
+    for i = 1, #matriz do
+        table.insert(diagonalSecundaria, matriz[i][#matriz - i + 1])
+    end
+    table.insert(resultado, diagonalSecundaria)
+
+    return resultado
+end
 
 
---     return 0
--- end
+
+
+function verificaGanhador(jogo)
+    local lista = obterLinhasColunasDiagonais(jogo)
+
+    for _, linha in ipairs(lista) do
+        if verificaValoresIguais(linha) and linha[1] ~= 0 then
+            return linha[1]
+        end
+    end
+    return false
+end

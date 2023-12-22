@@ -18,26 +18,60 @@ jogo = 1
 -- print(cerquilha)
 
 local matriz = {
-    {1, 1, 1},
-    {0, 1, 0},
-    {0, 1, 0}
+    {0, 0, 0},
+    {0, 0, 0},
+    {0, 0, 0}
 }
 
-print(type(matriz[1]))
+-- print(type(matriz[1]))
 
 -- 1 == X
 -- 2 == O
 
+--funcional
 -- printInicio()
 
--- printEstadoAtualJogo(matriz)
--- matriz = lerCoordenadas(1, matriz)
+jogadas = 0
+empate = false
 
--- ganhador = verificaGanhador(matriz)
+while not ganhador do
+    
+    if jogadas >= 9 then
+        empate = true
+        break
+    end
 
--- printEstadoAtualJogo(matriz)
+    matriz = lerCoordenadas(1, matriz)
+    printEstadoAtualJogo(matriz)
+    
+    ganhador = verificaGanhador(matriz)
+    if ganhador then 
+        break
+    end
+    if jogadas >= 9 then
+        empate = true
+        break
+    end
 
-print(verificaValoresIguais(matriz[1]))
+    matriz = lerCoordenadas(2, matriz)
+    printEstadoAtualJogo(matriz)
+    
+    ganhador = verificaGanhador(matriz)
+ 
 
--- ideia: percorrer a matriz e adicionar a uma 'lista' os valores das colunas e diagonais, para serem chamadas pela funcao verificaValoresIguais()
+end
+
+if not empate then
+    print("Jogador ", ganhador, " ganhou! *emogi de confete* :)")
+else
+    print("Nao houveram ganhadores, ou os dois sao muito bons, o sao muito ruins kkk")
+end
+
+print("Parabens :D ate a proxima jogada")
+
+
+
+
+
+
 
