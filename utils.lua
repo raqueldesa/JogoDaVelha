@@ -13,17 +13,18 @@ cerquilha0 = [[
     |   |
 ]]
 cerquilha1 = [[
-    |   |
+    |   |    
 -------------
-    | X |
+    | X |    
 -------------
-    |   |
+    |   |    
 ]]
 
 function pausaELimpa()
     print()
     os.execute("pause")
     os.execute("cls")
+    print()
 end
 
 function printInicio()
@@ -73,27 +74,41 @@ function erroCoordenada()
 end
 
 function erroJaExiste()
+    print()
     print("Posicao ja preenchida")
     print("Jogador perdeu a vez :(")
 end
 
 function printEstadoAtualJogo(jogo)
+    print()
+    print("Jogo Atual: \n")
 
     for i = 1, #jogo do
         for j = 1, #jogo[i] do
-            local jogada = "-"
+            local jogada = " "
             if  jogo[i][j] == 1 then
                 jogada = "X"
             elseif jogo[i][j] == 2 then
                 jogada = "O"
             end
-            io.write(jogada, " ")
+            
+            io.write(" ",jogada, " ")
+            if j < #jogo then
+                io.write("|")
+            end
         end
-        print()  -- Nova linha para cada linha da matriz
+        print()  
+        
+        if i < #jogo then
+            print("-----------")
+        end
     end
+    print()  
+
 end
 
 function lerCoordenadas(jogador, jogo)
+    print()
     io.write("Jogador ", jogador, ", digite suas coordenadas: ")
 
     local entrada = io.read("*line")

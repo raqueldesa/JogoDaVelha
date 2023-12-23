@@ -29,7 +29,7 @@ local matriz = {
 -- 2 == O
 
 --funcional
--- printInicio()
+printInicio()
 
 jogadas = 0
 empate = false
@@ -58,15 +58,16 @@ while not ganhador do
     
     ganhador = verificaGanhador(matriz)
  
-
 end
 
+printEstadoAtualJogo(matriz)
+
 if not empate then
-    print("Jogador ", ganhador, " ganhou! *emogi de confete* :)")
+    io.write("Jogador ", ganhador, " ganhou! *emogi de confete* :)\n")
 else
     print("Nao houveram ganhadores, ou os dois sao muito bons, o sao muito ruins kkk")
 end
-
+print()
 print("Parabens :D ate a proxima jogada")
 
 
