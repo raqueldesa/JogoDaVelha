@@ -11,11 +11,6 @@ utils = require("utils")
 -- 8. repete tudo ou finaliza
 
 -- futura feature -> criar um arquivo e registrar os jogos e pontuações
--- teste de commit 
-
-jogo = 1
-
--- print(cerquilha)
 
 local matriz = {
     {0, 0, 0},
@@ -23,12 +18,6 @@ local matriz = {
     {0, 0, 0}
 }
 
--- print(type(matriz[1]))
-
--- 1 == X
--- 2 == O
-
---funcional
 printInicio()
 
 jogadas = 0
